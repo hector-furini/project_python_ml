@@ -8,4 +8,4 @@ credentials.json
 token.json
 # praticas_old/
 *.pptx
-*/bkp/
+dev/script/app_hector/data/bkp/
