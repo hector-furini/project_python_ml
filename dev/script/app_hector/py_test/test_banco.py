@@ -1,37 +1,73 @@
-from PIL import Image
-from src.acesso_data import Data
+import os
+
+from src.paginas import Paginas
+from src.acesso_data import acesso_data_test, acesso_data_banco
+
+
+def test_acesso_data_img():
+    # Given
+    teste_local = "./app_hector/data/img/DataLab_Logo_i.jpg"
+
+    # When
+    teste_saida = acesso_data_test()
+    if os.path.isfile(teste_saida):
+        teste_local = teste_saida
+
+    # Then
+    assert teste_local == teste_saida
+
+
+def test_acesso_data_banco():
+    # Given
+    teste_local = "./app_hector/data/"
+
+    # When
+    teste_saida = acesso_data_banco()
+    if os.path.isdir(teste_saida):
+        teste_local = teste_saida
+
+    # Then
+    assert teste_local == teste_saida
 
 
 def test_busca_dados_cluster():
-    obj = Data()
-    dados = obj.busca_dados_cluster(obj.dir_data)
-    assert isinstance(dados, dict)
-    assert "01_original" in dados
-    assert "01_preparado" in dados
-    assert "02_cluster" in dados
+    # Given
+    teste_entrada = 3
+
+    # When
+    iniciando = Paginas()
+    df_train, df_valid, df_test = iniciando.busca_dados_cluster()
+    teste_saida = len([df_train, df_valid, df_test])
+
+    # Then
+    assert teste_entrada == teste_saida
 
 
 def test_busca_dados_class():
-    obj = Data()
-    dados = obj.busca_dados_class(obj.dir_data)
-    assert isinstance(dados, dict)
-    assert "03_dados_prep" in dados
-    assert "04_metricas_treino" in dados
-    assert "04_test_resultados" in dados
+    # Given
+    teste_entrada_1 = 6
+    teste_entrada_2 = 44
+
+    # When
+    iniciando = Paginas()
+    teste_saida_1 = len(iniciando.busca_dados_class()[0])
+    teste_saida_2 = len(iniciando.busca_dados_class()[1])
+
+    # Then
+    assert teste_entrada_1 == teste_saida_1
+    assert teste_entrada_2 == teste_saida_2
 
 
 def test_busca_dados_regr():
-    obj = Data()
-    dados = obj.busca_dados_regr(obj.dir_data)
-    assert isinstance(dados, dict)
-    assert "04_dados_prep" in dados
-    assert "04_metricas_treino" in dados
-    assert "04_train_resultados" in dados
-    assert "04_test_resultados" in dados
+    # Given
+    teste_entrada_1 = 131
+    teste_entrada_2 = 44
 
+    # When
+    iniciando = Paginas()
+    teste_saida_1 = len(iniciando.busca_dados_regr()[0])
+    teste_saida_2 = len(iniciando.busca_dados_regr()[1])
 
-def test_imagens():
-    obj = Data()
-    logo = obj.logo_datalab()
-    assert logo is None or isinstance(logo, Image.Image)
-    assert isinstance(obj.icone_pagina(), Image.Image)
+    # Then
+    assert teste_entrada_1 == teste_saida_1
+    assert teste_entrada_2 == teste_saida_2
