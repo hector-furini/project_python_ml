@@ -1,13 +1,16 @@
 # Disciplina: Python Machine Learning – v01/26
 
+##	Autor do Projeto:
+- Hector Hugo Furini
+
 ##	Coordenador:
 - Guilherme Ferreira Silveira.
 
 ##	Professores:
 - Guilherme Ferreira Silveira
 
-##	Monitores:
-- 
+## Repositório da Disciplina
+- [Python Machine Learning - gfsilveira](https://github.com/gfsilveira/disciplina_python_ml)
 
 ##	Carga horária:
 60h/atividade presencial.
