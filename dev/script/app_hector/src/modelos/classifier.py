@@ -1,13 +1,14 @@
-import streamlit as st
-import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 from scipy.stats import chi2_contingency
 from sklearn.metrics import (
-    accuracy_score,
-    confusion_matrix,
     ConfusionMatrixDisplay,
+    accuracy_score,
     classification_report,
+    confusion_matrix,
 )
+import streamlit as st
 
 
 class Classifier:
@@ -21,7 +22,7 @@ class Classifier:
     """
 
     def __init__(self, df: pd.DataFrame) -> None:
-        self.df = df
+        self.df = df.dropna(subset=["Dataset", "Classe_Predita"]).copy()
 
         return None
 
@@ -71,7 +72,7 @@ class Classifier:
 
     def matrix_confusao(self, df: pd.DataFrame, obs: str, pred: str) -> None:
         """
-        Exibe a matriz de confusão e o relatório de classificação do modelo.
+        Exibe a matriz de confusão e o relatório de classificação.
             Parâmetros
             ----------
             df : pd.DataFrame
@@ -81,21 +82,27 @@ class Classifier:
             pred : str
                 Nome da coluna com as predições do modelo.
         """
-        y_obs = df[obs]
-        y_pred = df[pred]
+        df_limpo = df.dropna(subset=[obs, pred])
+        y_obs = df_limpo[obs]
+        y_pred = df_limpo[pred]
 
+        labels = np.unique(y_obs)
         accuracy = accuracy_score(y_obs, y_pred)
-        cm = confusion_matrix(y_obs, y_pred)
+        cm = confusion_matrix(y_obs, y_pred, labels=labels)
         disp = ConfusionMatrixDisplay(
             confusion_matrix=cm,
-            display_labels=y_obs.value_counts().index,
+            display_labels=labels,
         )
-        disp.plot(cmap=plt.cm.Greens)
-        plt.title(f"Accuracy {accuracy:.2f}")
-        st.pyplot(plt)
+        fig, ax = plt.subplots()
+        disp.plot(cmap=plt.cm.Greens, ax=ax)
+        ax.set_title(f"Accuracy {accuracy:.2f}")
+        st.pyplot(fig)
+        plt.close(fig)
+
         st.write("\nClassification Report:")
-        st.dataframe(
-            (pd.DataFrame(classification_report(y_obs, y_pred, output_dict=True)).T)
+        relatorio = classification_report(
+            y_obs, y_pred, output_dict=True, zero_division=0
         )
+        st.dataframe(pd.DataFrame(relatorio).T)
 
         return None

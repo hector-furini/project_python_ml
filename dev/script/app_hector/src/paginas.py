@@ -1,11 +1,13 @@
+import os
+
+from joblib import load
 import numpy as np
 import pandas as pd
 import streamlit as st
-from joblib import load
 
 from src.acesso_data import acesso_data_banco
-from src.modelos.clustering import Clustering
 from src.modelos.classifier import Classifier
+from src.modelos.clustering import Clustering
 from src.modelos.regression import Regression
 
 
@@ -15,7 +17,7 @@ class Paginas:
         _self,
     ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         """
-        Função de busca dos dados de treino, validação e teste para clustering.
+        Busca os dados de treino, validação e teste para clustering.
         Retorna:
             tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
             DataFrames dos datasets de treino, validação e teste.
@@ -39,6 +41,34 @@ class Paginas:
         df_test["classe"] = y_test.values
 
         return df_train, df_valid, df_test
+
+    @st.cache_data
+    def busca_parametros_cluster(
+        _self,
+    ) -> tuple[dict, dict, dict]:
+        """
+        Carrega os melhores hiperparâmetros de clustering salvos pelos
+        notebooks (com fallback seguro).
+        """
+        banco = acesso_data_banco()
+        p_kmeans = {
+            "n_clusters": 3,
+            "init": "k-means++",
+            "n_init": 10,
+            "random_state": 42,
+        }
+        p_dbscan = {"eps": 0.5, "min_samples": 3, "metric": "euclidean"}
+        p_agg = {"n_clusters": 3, "metric": "euclidean", "linkage": "ward"}
+
+        if os.path.isfile(banco + "02_best_params_kmeans"):
+            p_kmeans = dict(load(banco + "02_best_params_kmeans"))
+            p_kmeans.setdefault("random_state", 42)
+        if os.path.isfile(banco + "02_best_params_dbscan"):
+            p_dbscan = dict(load(banco + "02_best_params_dbscan"))
+        if os.path.isfile(banco + "02_best_params_agg"):
+            p_agg = dict(load(banco + "02_best_params_agg"))
+
+        return p_kmeans, p_dbscan, p_agg
 
     @st.cache_data
     def busca_dados_class(
@@ -105,46 +135,34 @@ class Paginas:
     ) -> tuple[dict, str, str, str]:
         """
         Função de teste dos modelos de clustering.
-        Parametros:
-            _self: Referência para a própria classe.
-            variavel_1: Primeira variável para o clustering.
-            variavel_2: Segunda variável para o clustering.
-            df_train: DataFrame de treino.
-            df_test: DataFrame de teste.
-        Retorna:
-            tuple[dict, str, str, str]: Resultados dos modelos e
-                mensagens de conclusão.
         """
-        # K-means ------------------------------------------------
+        p_kmeans, p_dbscan, p_agg = _self.busca_parametros_cluster()
         i = variavel_1
         j = variavel_2
-
-        cluster = Clustering(c1=i, c2=j, df=df_train, modelo="kmeans")
         resultados = {}
-        resultados["K-means"], msn_kmenans = cluster.testar_modelo(
-            best_param={"n_clusters": 3, "init": "k-means++", "n_init": 10},
+
+        # K-means ------------------------------------------------
+        cluster = Clustering(c1=i, c2=j, df=df_train, modelo="kmeans")
+        resultados["K-means"], msn_kmeans = cluster.testar_modelo(
+            best_param=p_kmeans,
             df_test=df_test,
         )
 
         # DBSCAN -------------------------------------------------
         cluster = Clustering(c1=i, c2=j, df=df_train, modelo="dbscan")
         resultados["DBSCAN"], msn_dbscan = cluster.testar_modelo(
-            best_param={"eps": 0.5, "min_samples": 3, "metric": "euclidean"},
+            best_param=p_dbscan,
             df_test=df_test,
         )
 
         # Agglomerative ------------------------------------------
         cluster = Clustering(c1=i, c2=j, df=df_train, modelo="agglomerative")
         resultados["Agg"], msn_agg = cluster.testar_modelo(
-            best_param={
-                "n_clusters": 3,
-                "metric": "euclidean",
-                "linkage": "ward",
-            },
+            best_param=p_agg,
             df_test=df_test,
         )
 
-        return resultados, msn_kmenans, msn_dbscan, msn_agg
+        return resultados, msn_kmeans, msn_dbscan, msn_agg
 
     @st.cache_data
     def __classifier(_self) -> None:
@@ -272,20 +290,24 @@ class Paginas:
             col = st.columns((2, 2, 0.05, 2, 0.05, 2))
             with col[0]:
                 variavel_1 = st.radio(
-                    "Primeira variável:", ["Grupo_1", "Grupo_2", "Grupo_3"]
+                    "Primeira variável:",
+                    ["Grupo_1", "Grupo_2", "Grupo_3"],
+                    index=1,
                 )
                 variavel_2 = st.radio(
-                    "Segunda variável:", ["Grupo_2", "Grupo_3", "Grupo_1"]
+                    "Segunda variável:",
+                    ["Grupo_2", "Grupo_3", "Grupo_1"],
+                    index=1,
                 )
 
-            resultados, msn_kmenans, msn_dbscan, msn_agg = self.__clustering(
+            resultados, msn_kmeans, msn_dbscan, msn_agg = self.__clustering(
                 variavel_1=variavel_1,
                 variavel_2=variavel_2,
                 df_train=df_train,
                 df_test=df_test,
             )
             with col[1]:
-                st.markdown(f"<p>{msn_kmenans}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p>{msn_kmeans}</p>", unsafe_allow_html=True)
                 st.pyplot(fig=resultados["K-means"])
 
             with col[3]:
