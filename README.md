@@ -10,21 +10,25 @@
 - [Python Machine Learning - gfsilveira](https://github.com/gfsilveira/disciplina_python_ml)
 
 ## Caminhos para avaliação
-### 1. O processamento dos dados, treinamento e avaliação pode ser encontrado em [Projeto Hector](projeto_hector/dev/script/projeto_hector)
-### 2. [Base de Dados ](projeto_hector/dev/script/projeto_hector/db)
-### 3. Preparação dos dados:
+1. O processamento dos dados, treinamento e avaliação pode ser encontrado em [Projeto Hector](dev/script/projeto_hector)
+2. Base de dados [DB](dev/script/projeto_hector/db)
+3. Preparação dos dados:
+
 | Clusterização | Classificação| Regressão |
 | --- | --- | --- |
-| [preparação_clustering.ipynb](projeto_hector/dev/script/projeto_hector/01_preparação_clustering.ipynb) | [preparação_classificação.ipynb](projeto_hector/dev/script/projeto_hector/03_preparação_classificação.ipynb) | [preparação_regressão.ipynb](projeto_hector/dev/script/projeto_hector/05_preparação_regressão.ipynb) |
-### 4. Relatório do [yData](projeto_hector/dev/script/projeto_hector/data_report.html)
-### 5. Dump dos Banco de Dados [DuckDB](projeto_hector/dev/script/projeto_hector/data)
-### 6. Treino, validação e teste:
+| [preparação_clustering.ipynb](dev/script/projeto_hector/01_preparação_clustering.ipynb) | [preparação_classificação.ipynb](dev/script/projeto_hector/03_preparação_classificação.ipynb) | [preparação_regressão.ipynb](dev/script/projeto_hector/05_preparação_regressão.ipynb) |
+
+4. Relatório do [yData](dev/script/projeto_hector/data_report.html)
+5. Dump dos Banco de Dados [DuckDB](dev/script/projeto_hector/data)
+6. Treino, validação e teste:
+
 | Clusterização | Classificação| Regressão |
 | --- | --- | --- |
-| [clustering.ipynb](projeto_hector/dev/script/projeto_hector/02_clustering.ipynb) | [classificação.ipynb](projeto_hector/dev/script/projeto_hector/04_classificação.ipynb) | [regressão.ipynb](projeto_hector/dev/script/projeto_hector/06_regressão.ipynb) |
-### 7. Diretório do Aplicatico [Streamlit](projeto_hector/dev/script/app_hector)
-### 8. Testes [Py_test](projeto_hector/dev/script/app_hector/py_test), Resultados [Py_test](projeto_hector/dev/script/htmlcov/index.html)
-### 9. Link do Aplicativo [Streamlit](https://projectpythonml-l3eu6ttpwztdadaa9rtrmp.streamlit.app/)
+| [clustering.ipynb](dev/script/projeto_hector/02_clustering.ipynb) | [classificação.ipynb](dev/script/projeto_hector/04_classificação.ipynb) | [regressão.ipynb](dev/script/projeto_hector/06_regressão.ipynb) |
+
+7. Diretório do Aplicatico [Streamlit](dev/script/app_hector)
+8. Testes [Py_test](dev/script/app_hector/py_test), Resultados [Py_test](dev/script/htmlcov/index.html)
+9. Link do Aplicativo [Streamlit](https://projectpythonml-l3eu6ttpwztdadaa9rtrmp.streamlit.app/)
 
 ##	Carga horária:
 60h/atividade presencial.
