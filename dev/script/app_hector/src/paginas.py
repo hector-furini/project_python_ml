@@ -90,9 +90,7 @@ class Paginas:
         for nome in modelos:
             datasets[nome] = pd.DataFrame(
                 {
-                    "Dataset": (
-                        ["Treino"] * len(df_train) + ["Teste"] * len(df_test)
-                    ),
+                    "Dataset": (["Treino"] * len(df_train) + ["Teste"] * len(df_test)),
                     "Classe_Predita": np.concatenate(
                         [df_train[nome].values, df_test[nome].values]
                     ),
@@ -185,9 +183,7 @@ class Paginas:
                 classificador = Classifier(df=dados[v])
                 classificador.testar_hipotese()
                 st.divider()
-                classificador.matrix_confusao(
-                    df=df_test_class, obs="classe", pred=v
-                )
+                classificador.matrix_confusao(df=df_test_class, obs="classe", pred=v)
 
         st.divider()
 
@@ -204,9 +200,7 @@ class Paginas:
                 classificador = Classifier(df=dados[v])
                 classificador.testar_hipotese()
                 st.divider()
-                classificador.matrix_confusao(
-                    df=df_test_class, obs="classe", pred=v
-                )
+                classificador.matrix_confusao(df=df_test_class, obs="classe", pred=v)
         return None
 
     @st.cache_data
@@ -227,9 +221,7 @@ class Paginas:
                 )
                 regressor.testar_hipotese(y_pred=v)
                 st.divider()
-                regressor.obter_grafico(
-                    df_test=df_test_regr, y_true="PEV", y_pred=v
-                )
+                regressor.obter_grafico(df_test=df_test_regr, y_true="PEV", y_pred=v)
         return None
 
     @st.cache_data

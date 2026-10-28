@@ -23,9 +23,7 @@ class Regression:
             Série com os valores preditos no conjunto de teste.
     """
 
-    def __init__(
-        self, y_pred_treino: pd.Series, y_pred_teste: pd.Series
-    ) -> None:
+    def __init__(self, y_pred_treino: pd.Series, y_pred_teste: pd.Series) -> None:
         self.y_pred_treino = y_pred_treino.dropna()
         self.y_pred_teste = y_pred_teste.dropna()
 
@@ -68,17 +66,13 @@ class Regression:
 
         return None
 
-    def obter_grafico(
-        self, df_test: pd.DataFrame, y_true: str, y_pred: str
-    ) -> None:
+    def obter_grafico(self, df_test: pd.DataFrame, y_true: str, y_pred: str) -> None:
         df_limpo = df_test[[y_true, y_pred]].dropna()
         r_cal, r_cal_p = spearmanr(df_limpo[y_true], df_limpo[y_pred])
         r2_cal = r2_score(df_limpo[y_true], df_limpo[y_pred])
         mae_cal = mean_absolute_error(df_limpo[y_true], df_limpo[y_pred])
         rmse_cal = mean_squared_error(df_limpo[y_true], df_limpo[y_pred])
-        mape_cal = mean_absolute_percentage_error(
-            df_limpo[y_true], df_limpo[y_pred]
-        )
+        mape_cal = mean_absolute_percentage_error(df_limpo[y_true], df_limpo[y_pred])
 
         mensagem = f"""
     R Spearman: {r_cal:.4f}
@@ -96,9 +90,7 @@ class Regression:
             marginal_ticks=True,
             data=df_limpo,
         )
-        p.fig.suptitle(
-            f"Correlação para {y_true} com algoritmo {y_pred}", y=1.02
-        )
+        p.fig.suptitle(f"Correlação para {y_true} com algoritmo {y_pred}", y=1.02)
         plt.text(
             0.05,
             0.99,

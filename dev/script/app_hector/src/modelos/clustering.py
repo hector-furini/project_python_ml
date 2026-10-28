@@ -21,9 +21,7 @@ class Clustering:
     Classe para realizar clustering em uma bivariada de um DataFrame.
     """
 
-    def __init__(
-        self, c1: str, c2: str, df: pd.DataFrame, modelo: str
-    ) -> None:
+    def __init__(self, c1: str, c2: str, df: pd.DataFrame, modelo: str) -> None:
         self.c1 = c1
         self.c2 = c2
         self.df = df.dropna(subset=[c1, c2]).copy()
@@ -31,9 +29,7 @@ class Clustering:
 
         return None
 
-    def _preparar_par(
-        self, df_origem: pd.DataFrame
-    ) -> tuple[pd.DataFrame, str, str]:
+    def _preparar_par(self, df_origem: pd.DataFrame) -> tuple[pd.DataFrame, str, str]:
         """
         Prepara o par de variáveis garantindo colunas distintas caso
         o usuário selecione a mesma variável duas vezes.
@@ -184,9 +180,7 @@ class Clustering:
         chi2_stat, p_value = self._calcular_qui_quadrado(
             observed_val_counts, expected_val_counts
         )
-        ari_score = adjusted_rand_score(
-            labels_val_predicted, labels_val_direct
-        )
+        ari_score = adjusted_rand_score(labels_val_predicted, labels_val_direct)
 
         msn_resul = self._formatar_resultado(
             titulo="K-means",
@@ -197,9 +191,7 @@ class Clustering:
             p_value=p_value,
             ari_score=ari_score,
         )
-        grafico = self.grafico_scatter(
-            hue=labels_val_predicted, df_grafico=df_test
-        )
+        grafico = self.grafico_scatter(hue=labels_val_predicted, df_grafico=df_test)
 
         return grafico, msn_resul
 
@@ -223,9 +215,7 @@ class Clustering:
         dbscan_val_direct = DBSCAN(**best_param).fit(x_val)
         labels_val_direct = dbscan_val_direct.labels_
 
-        all_clusters = np.unique(
-            np.concatenate([labels_train, labels_val_predicted])
-        )
+        all_clusters = np.unique(np.concatenate([labels_train, labels_val_predicted]))
 
         train_counts = (
             pd.Series(labels_train)
@@ -246,9 +236,7 @@ class Clustering:
         chi2_stat, p_value = self._calcular_qui_quadrado(
             observed_val_counts, expected_val_counts
         )
-        ari_score = adjusted_rand_score(
-            labels_val_predicted, labels_val_direct
-        )
+        ari_score = adjusted_rand_score(labels_val_predicted, labels_val_direct)
 
         msn_resul = self._formatar_resultado(
             titulo="DBSCAN",
@@ -259,9 +247,7 @@ class Clustering:
             p_value=p_value,
             ari_score=ari_score,
         )
-        grafico = self.grafico_scatter(
-            hue=labels_val_predicted, df_grafico=df_test
-        )
+        grafico = self.grafico_scatter(hue=labels_val_predicted, df_grafico=df_test)
 
         return grafico, msn_resul
 
@@ -309,9 +295,7 @@ class Clustering:
         chi2_stat, p_value = self._calcular_qui_quadrado(
             observed_val_counts, expected_val_counts
         )
-        ari_score = adjusted_rand_score(
-            labels_val_predicted, labels_val_direct
-        )
+        ari_score = adjusted_rand_score(labels_val_predicted, labels_val_direct)
 
         msn_resul = self._formatar_resultado(
             titulo="AGGLOMERATIVE",
@@ -322,9 +306,7 @@ class Clustering:
             p_value=p_value,
             ari_score=ari_score,
         )
-        grafico = self.grafico_scatter(
-            hue=labels_val_predicted, df_grafico=df_test
-        )
+        grafico = self.grafico_scatter(hue=labels_val_predicted, df_grafico=df_test)
 
         return grafico, msn_resul
 

@@ -1,16 +1,30 @@
-# Disciplina: Python Machine Learning – v01/26
+# Relatório de Disciplina: Python Machine Learning – v01/26
 
 ##	Autor do Projeto:
 - Hector Hugo Furini
-
-##	Coordenador:
-- Guilherme Ferreira Silveira.
 
 ##	Professores:
 - Guilherme Ferreira Silveira
 
 ## Repositório da Disciplina
 - [Python Machine Learning - gfsilveira](https://github.com/gfsilveira/disciplina_python_ml)
+
+## Caminhos para avaliação
+### 1. O processamento dos dados, treinamento e avaliação pode ser encontrado em [Projeto Hector](projeto_hector/dev/script/projeto_hector)
+### 2. [Base de Dados ](projeto_hector/dev/script/projeto_hector/db)
+### 3. Preparação dos dados:
+| Clusterização | Classificação| Regressão |
+| --- | --- | --- |
+| [preparação_clustering.ipynb](projeto_hector/dev/script/projeto_hector/01_preparação_clustering.ipynb) | [preparação_classificação.ipynb](projeto_hector/dev/script/projeto_hector/03_preparação_classificação.ipynb) | [preparação_regressão.ipynb](projeto_hector/dev/script/projeto_hector/05_preparação_regressão.ipynb) |
+### 4. Relatório do [yData](projeto_hector/dev/script/projeto_hector/data_report.html)
+### 5. Dump dos Banco de Dados [DuckDB](projeto_hector/dev/script/projeto_hector/data)
+### 6. Treino, validação e teste:
+| Clusterização | Classificação| Regressão |
+| --- | --- | --- |
+| [clustering.ipynb](projeto_hector/dev/script/projeto_hector/02_clustering.ipynb) | [classificação.ipynb](projeto_hector/dev/script/projeto_hector/04_classificação.ipynb) | [regressão.ipynb](projeto_hector/dev/script/projeto_hector/06_regressão.ipynb) |
+### 7. Diretório do Aplicatico [Streamlit](projeto_hector/dev/script/app_hector)
+### 8. Testes [Py_test](projeto_hector/dev/script/app_hector/py_test), Resultados [Py_test](projeto_hector/dev/script/htmlcov/index.html)
+### 9. Link do Aplicativo [Streamlit](https://projectpythonml-l3eu6ttpwztdadaa9rtrmp.streamlit.app/)
 
 ##	Carga horária:
 60h/atividade presencial.
@@ -40,7 +54,6 @@ Na trajetória pela disciplina será utilizado e estudado conceitos matemáticos
 - Seaborn
 - Smote (Oversampling)
 
-
 ##	Bibliografia:
 1.	An Introduction to Statistical Learning – Gareth James (Author).
 2.	Python Data Science Handbook: Essential Tools for Working with Data – Jake VanderPlas (Author).
@@ -49,113 +62,3 @@ Na trajetória pela disciplina será utilizado e estudado conceitos matemáticos
 5.	PEP 8 -- Style Guide for Python Code. https://www.python.org/dev/peps/pep-0008/
 6.	Make code slow and complex. Silveira. https://medium.com/@gfsilveira/make-code-slow-and-complex-222c3c2cd316
 
-##	Natureza:
-Teórica e prática
-
-##	Observações:
-É necessário, como pré-requisito para a disciplina, que o aluno tenha sido aprovado em Python Básico (modelo EAD) ou Python Básico Presencial.
-
-##	Período: 03/08 a 29/10:
-Serão 16 aulas, segundas-feiras das 08h às 12h. E terças-feiras das 13h às 17h.
-
-1 – O que é Machine Learning?
-
-2 – Machine Learning é para mim?
-
-3 – Objetivos:
-- Determine o que é sucesso na obtenção de um modelo;
-- Metas com base nos objetivos específicos;
-
-4 – Aquisição dos dados:
-- Disponibilidade;
-- Estruturação;
-- Balanceamento;
-- Pandas;
-- Numpy;
-- SQLite;
-- Smote;
-
-5 – Algoritmos:
-- k-Means;
-- k-NN;
-- Logistic Regression;
-- SVM;
-- Decision Trees;
-- Random Forests;
-- Naive Bayes;
-- Simple/Multiple Linear Regression;
-- Neural Networks 
-
-6 – Divisão da base de dados:
-- Treino;
-- Ajuste;
-- Validação;
-- Teste;
-- Scikit-learning
-
-7 – Estruturação, Análise Exploratória de Dados e Seleção de Variáveis:
-- Tabela e Frequência e Medidas Resumo;
-- Correlação;
-- Redução de Dimensionalidade; 
-- Statsmodels;
-
-8 – Seleção de Algoritmos:
-- Classificação;
-- Regressão;
-- Clusterização;
-- Redes Neurais;
-- Tensorflow;
-- Keras;
-
-9 – Treinamento:
-- Normalização e padronização;
-- Prática de treinamento dos algoritmos;
-
-10 – Ajuste e Debug:
-- Ajuste de hiperparâmetros;
-- Correção de erros do modelo treinado (tamanho do banco, seleção de variáveis etc.);
-- GridSearchCV
-
-11 – Validação:
-- Matrix de Confusão;
-- Métricas de Erro Padrão;
-
-12 – Teste:
-- Teste de hipótese entre predito e observado;
-
-13 – Produção (back end):
-- Programação Orientada a Objetos;
-- Testes automatizados;
-- CI/CD;
-- PyTest
-- Pipeline e Agregat
-
-14 – Experimento da vida real (front end): 
-- Teste seu modelo em nova amostragem;
-- Streamlit
-
-15 – Monitoramento e manutenção:
-- Quando um modelo deve ser substituído;
-
-
-## Avaliação:
-Projeto de um sistema de predição com base em algoritmos de Machine Learning.
-
-Modo de entrega: Sistema de predição com base em algoritmos de Machine Learning.
-
-Prazo: o commit deve ser feito até o dia <span style="color:red">17/04<br>
-NÃO VAMOS POSTERGAR</span><br><br>
-
-Aos alunos do PPGBB, Regimento no Item 6.2, pág. 16, para a conversão das porcentagens das notas em conceitos, seguindo tabela adaptada abaixo:
-<br><br>
-- Conceito A – Projeto funcionando;
-- Conceito B – Projeto existe, com AED, deploy ou testagem parcial;
-- Conceito C – Projeto existe, com AED, deploy e testagem parcial;
-- Conceito D – Não, não fiz nada;
- 
-
-##	Número máximo de alunos:
-12 alunos.
-
-##	Aceita alunos externos:
-Sim
